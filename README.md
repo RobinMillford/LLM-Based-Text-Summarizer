@@ -114,4 +114,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 For any issues, please create a new [issue](https://github.com/RobinMillford/LLM-Based-Text-Summarizer/issues).
-```
