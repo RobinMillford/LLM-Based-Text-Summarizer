@@ -1,0 +1,41 @@
+{
+    "image": "mcr.microsoft.com/devcontainers/python:3.11-bullseye",
+    "customizations": {
+        "codespaces": {
+            "openFiles": [
+                "README.md",
+                "app.py"
+            ]
+        },
+        "vscode": {
+            "settings": {
+                "python.pythonPath": "/usr/local/bin/python",
+                "python.defaultInterpreterPath": "/usr/local/bin/python",
+                "python.linting.enabled": true,
+                "python.linting.pylintEnabled": true
+            },
+            "extensions": [
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "streetsidesoftware.code-spell-checker",
+                "esbenp.prettier-vscode"
+            ]
+        }
+    },
+    // Port forwarding for Streamlit
+    "forwardPorts": [8501],
+    "postCreateCommand": "pip3 install --user -r requirements.txt",
+    "postAttachCommand": "streamlit run streamlit_app.py --server.enableCORS false --server.enableXsrfProtection false --server.port 8501",
+    "portsAttributes": {
+        "8501": {
+            "label": "Streamlit App",
+            "onAutoForward": "openPreview"
+        }
+    },
+    // Ensure non-root user (vscode) is used for better security
+    "remoteUser": "vscode",
+    "features": {
+        "git": "latest",
+        "github-cli": "latest"
+    }
+}

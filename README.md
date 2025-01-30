@@ -1,116 +1,155 @@
-# Multilingual Text Summarizer
+# Multi-Model RAG-Powered Article Chatbot
 
-📝 **Multilingual Text Summarizer** is a web application that summarizes text, PDFs, and images in multiple languages using a T5 transformer model. The application is built with Streamlit, EasyOCR, and Hugging Face Transformers.
+This project creates a **Retrieve-and-Generate (RAG)** powered chatbot for summarizing and interacting with articles. The system processes articles provided as PDFs or URLs, extracts text, splits the content into chunks, generates embeddings, and stores them in a vector database. The chatbot then responds to user queries using a **Large Language Model (LLM)** to generate context-aware answers.
+
+The project is deployed on **Streamlit Cloud**, allowing users to interact with the chatbot via an easy-to-use interface.
 
 ## Features
 
-- Summarize text input directly
-- Summarize content from uploaded PDF, TXT, and image files
-- Detect and handle multiple languages
-- Translate summarized text to English
-- Chat-like prompt system for refining summaries
+- **PDF/URL Upload**: Upload a PDF file or provide a URL containing an article.
+- **Text Extraction**: The app extracts text content from the uploaded document or webpage.
+- **Chunking & Embeddings**: The extracted text is split into smaller chunks, and embeddings are generated for efficient search.
+- **Vector Database**: The embeddings are stored in a vector database for fast retrieval.
+- **LLM Integration**: Queries are processed using the **ChatGroq** LLM for generating contextually relevant answers.
+- **Conversation History**: Users can continue the chat with the chatbot, as it stores conversation history and context.
+- **Changeable LLM Models**: There is an option to switch between different LLM models for generating responses.
+- **Deployable on Streamlit**: The app is deployed on Streamlit Cloud for easy access and interaction.
 
-## Demo
+### Supported Models
 
-You can try the live demo on [Streamlit Cloud](https://llm-based-text-summarizer.streamlit.app/).
+| Model                         | Requests per Minute | Requests per Day | Tokens per Minute | Tokens per Day | Advantages                                                   | Disadvantages                        |
+| ----------------------------- | ------------------- | ---------------- | ----------------- | -------------- | ------------------------------------------------------------ | ------------------------------------ |
+| deepseek-r1-distill-llama-70b | 30                  | 1,000            | 6,000             | Unlimited      | Unlimited token capacity, low latency                        | Limited daily requests               |
+| gemma2-9b-it                  | 30                  | 14,400           | 15,000            | 500,000        | High throughput, suitable for large-scale inference          | Limited versatility                  |
+| llama-3.1-8b-instant          | 30                  | 14,400           | 20,000            | 500,000        | High-speed processing, great for real-time applications      | Less accurate for complex reasoning  |
+| llama-3.2-11b-vision-preview  | 30                  | 7,000            | 7,000             | 500,000        | Specialized for visual input tasks                           | Lower token capacity                 |
+| llama-3.2-1b-preview          | 30                  | 7,000            | 7,000             | 500,000        | Lightweight and efficient for small queries                  | Limited versatility                  |
+| llama-3.2-3b-preview          | 30                  | 7,000            | 7,000             | 500,000        | Balanced performance and scalability                         | Moderate token capacity              |
+| llama-3.2-90b-vision-preview  | 15                  | 3,500            | 7,000             | 250,000        | Complex visual and text reasoning                            | Low throughput                       |
+| llama-3.3-70b-specdec         | 30                  | 1,000            | 6,000             | 100,000        | Precision-focused for decision-making                        | Limited token capacity               |
+| llama-3.3-70b-versatile       | 30                  | 1,000            | 6,000             | 100,000        | Versatile for high-accuracy scenarios                        | Low throughput                       |
+| llama-guard-3-8b              | 30                  | 14,400           | 15,000            | 500,000        | Designed for safeguarding and content moderation             | Not optimized for creative tasks     |
+| llama3-70b-8192               | 30                  | 14,400           | 6,000             | 500,000        | Long-context, ideal for extended conversations               | Moderate speed and accuracy          |
+| llama3-8b-8192                | 30                  | 14,400           | 20,000            | 500,000        | High-speed inference with long-context support               | Slightly less accurate for reasoning |
+| mixtral-8x7b-32768            | 30                  | 14,400           | 5,000             | 500,000        | Multi-modal capabilities for diverse input (text and vision) | Lower token throughput               |
 
-## Screenshots
+## How It Works
 
-![App Screenshot](https://github.com/RobinMillford/LLM-Based-Text-Summarizer/blob/main/LLM1.png)
-![App Screenshot](https://github.com/RobinMillford/LLM-Based-Text-Summarizer/blob/main/LLM2.png)
+1. **User Input**: Users upload a PDF file or provide a URL.
+2. **Text Extraction**: The app extracts text from the document using **Text Extraction** functions.
+3. **Chunking & Embeddings**: The extracted text is split into smaller chunks, and embeddings are created using the **ChatGroq** model.
+4. **Vector Store**: Embeddings are stored in a vector database (e.g., **ChromaDB**, **FAISS**, **Pinecone**, or **DocArrayInMemorySearch** from **LangChain**).
+5. **Querying**: Users can ask questions through the chatbot interface.
+6. **Response Generation**: The system retrieves relevant chunks from the vector database and feeds them into the selected **LLM** to generate the response.
+7. **Conversation History**: The chatbot maintains conversation history, enabling users to continue their chat without losing context.
+8. **Model Switching**: Users have the flexibility to switch between different LLM models as per their preferences.
+9. **Final Answer**: The LLM generates an answer based on the retrieved context and returns it to the user.
 
-## Installation
+![Alt Text](https://github.com/RobinMillford/Llama3-RAG-Powered-Article-Chatbot/blob/main/Uml%20Diagram.png)
 
-### Local Setup
+## Getting Started
 
-1. **Clone the repository:**
+To use the chatbot locally or contribute to this repository, follow the steps below.
 
-    ```sh
-    git clone https://github.com/RobinMillford/llm-based-text-summarizer.git
-    cd LLM-Based-Text-Summarizer
-    ```
+### Prerequisites
 
-2. **Create and activate a virtual environment:**
+Before starting, ensure you have the following:
 
-    ```sh
-    python -m venv myenv
-    source myenv/bin/activate   # On Windows use `myenv\Scripts\activate`
-    ```
+- **Python 3.12**
+- **pip** for installing packages
+- **.env** file for your API keys (see below)
+- **ChatGroq API Key** (for using the LLM model)
 
-3. **Install dependencies:**
+### Clone the Repository
 
-    ```sh
-    pip install -r requirements.txt
-    ```
+First, clone the repository to your local machine.
 
-4. **Run the Streamlit app:**
+```bash
+git clone https://github.com/RobinMillford/Llama3-RAG-Powered-Article-Chatbot.git
+cd Llama3-RAG-Powered-Article-Chatbot
+```
 
-    ```sh
-    streamlit run app.py
-    ```
+### Install Dependencies
 
-### Docker
+Create a virtual environment and install the required dependencies.
 
-1. **Pull the Docker image:**
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows, use 'venv\Scripts\activate'
+pip install -r requirements.txt
+```
 
-    ```sh
-    docker pull yamin69/summarizer:latest
-    ```
+### Set Up Environment Variables
 
-2. **Run the Docker container:**
+You need to set your **ChatGroq API key**. Create a `.env` file in the root directory and add the following:
 
-    ```sh
-    docker run -p 8501:8501 yamin69/summarizer:latest
-    ```
+```
+GROQ_API_KEY=your_chatgroq_api_key
+```
 
-## Usage
+Make sure to replace `your_chatgroq_api_key` with your actual API key from ChatGroq.
 
-1. **Navigate to the app URL.**
-2. **Choose an input method:**
-    - Direct Text Input
-    - Upload File (PDF, TXT, Image)
-3. **Enter or upload your content.**
-4. **Optionally add prompts to refine the summary.**
-5. **Click "Generate Summary" to get the summarized text.**
+### Running the App Locally
 
-## Contributing
+Once the dependencies are installed and the environment variables are set up, you can start the application locally.
 
-1. **Fork the repository:**
+```bash
+streamlit run app.py
+```
 
-    ```sh
-    git fork https://github.com/RobinMillford/llm-based-text-summarizer.git
-    ```
+### Deployed on Streamlit Cloud
 
-2. **Create a branch:**
+I deployed the app on Streamlit Cloud :
 
-    ```sh
-    git checkout -b feature-branch
-    ```
+1. Visit [Streamlit Deployed Demo](https://multi-model-rag-powered-article-chatbot.streamlit.app/)
 
-3. **Make your changes and commit them:**
+![Alt Text](https://github.com/RobinMillford/Llama3-RAG-Powered-Article-Chatbot/blob/main/Llama3-RAG-Chatbot-1.png)
 
-    ```sh
-    git commit -am 'Add new feature'
-    ```
+![Alt Text](https://github.com/RobinMillford/Llama3-RAG-Powered-Article-Chatbot/blob/main/Llama3-RAG-Chatbot-2.png)
 
-4. **Push to the branch:**
+### Usage
 
-    ```sh
-    git push origin feature-branch
-    ```
+Once the app is running (locally or on Streamlit Cloud), follow these steps:
 
-5. **Create a new Pull Request.**
+1. Upload a PDF file or provide a URL of an article.
+2. The system will extract text from the document or URL.
+3. The chatbot interface will appear, allowing you to ask questions about the content of the document.
+4. The chatbot will generate a response based on the context of the document.
 
-## License
+### Contributing
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+I welcome contributions! To contribute, follow these steps:
 
-## Acknowledgments
+1. **Fork the repository** on GitHub.
+2. Clone your forked repository:
 
-- [Streamlit](https://streamlit.io)
-- [Hugging Face](https://huggingface.co)
-- [EasyOCR](https://github.com/JaidedAI/EasyOCR)
+```bash
+git clone https://github.com/your-username/Llama3-RAG-Powered-Article-Chatbot.git
+```
+
+3. Create a new branch:
+
+```bash
+git checkout -b feature-name
+```
+
+4. Make your changes and commit them:
+
+```bash
+git add .
+git commit -m "Description of the changes"
+```
+
+5. Push your changes to your forked repository:
+
+```bash
+git push origin feature-name
+```
+
+6. Open a **Pull Request** from your branch to the `main` branch of the original repository.
+
+### License
+
+This project is licensed under the AGPL-3.0 license - see the [LICENSE](LICENSE) file for details.
 
 ---
-
-For any issues, please create a new [issue](https://github.com/RobinMillford/LLM-Based-Text-Summarizer/issues).
