@@ -45,7 +45,7 @@ The project is deployed on **Streamlit Cloud**, allowing users to interact with 
 8. **Model Switching**: Users have the flexibility to switch between different LLM models as per their preferences.
 9. **Final Answer**: The LLM generates an answer based on the retrieved context and returns it to the user.
 
-![Alt Text](https://github.com/RobinMillford/Llama3-RAG-Powered-Article-Chatbot/blob/main/Uml%20Diagram.png)
+![Alt Text](https://github.com/RobinMillford/LLM-Based-Text-Summarizer/blob/main/Uml%20Diagram.png)
 
 ## Getting Started
 
@@ -103,9 +103,9 @@ I deployed the app on Streamlit Cloud :
 
 1. Visit [Streamlit Deployed Demo](https://multi-model-rag-powered-article-chatbot.streamlit.app/)
 
-![Alt Text](https://github.com/RobinMillford/Llama3-RAG-Powered-Article-Chatbot/blob/main/Llama3-RAG-Chatbot-1.png)
+![Alt Text](https://github.com/RobinMillford/LLM-Based-Text-Summarizer/blob/main/Llama3-RAG-Chatbot-1.png)
 
-![Alt Text](https://github.com/RobinMillford/Llama3-RAG-Powered-Article-Chatbot/blob/main/Llama3-RAG-Chatbot-2.png)
+![Alt Text](https://github.com/RobinMillford/LLM-Based-Text-Summarizer/blob/main/Llama3-RAG-Chatbot-2.png)
 
 ### Usage
 
