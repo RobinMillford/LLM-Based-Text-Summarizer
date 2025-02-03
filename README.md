@@ -65,8 +65,8 @@ Before starting, ensure you have the following:
 First, clone the repository to your local machine.
 
 ```bash
-git clone https://github.com/RobinMillford/Llama3-RAG-Powered-Article-Chatbot.git
-cd Llama3-RAG-Powered-Article-Chatbot
+git clone https://github.com/RobinMillford/Multi-Model-RAG-Powered-Article-Chatbot.git
+cd Multi-Model-RAG-Powered-Article-Chatbot
 ```
 
 ### Install Dependencies
@@ -124,7 +124,7 @@ I welcome contributions! To contribute, follow these steps:
 2. Clone your forked repository:
 
 ```bash
-git clone https://github.com/your-username/Llama3-RAG-Powered-Article-Chatbot.git
+git clone https://github.com/RobinMillford/Multi-Model-RAG-Powered-Article-Chatbot.git
 ```
 
 3. Create a new branch:
